@@ -63,14 +63,22 @@ export class VaultTreeDataProvider implements vscode.TreeDataProvider<VaultTreeI
     }
 
     async disconnect(server: VaultServerTreeItem): Promise<void> {
-        const index = this._serverList.indexOf(server);
-        if (index > -1) {
-            this._serverList.splice(index, 1);
-            // TODO: Dispose of the server's session
-            // server.session.dispose();
-        }
-        else {
-            vscode.window.showWarningMessage(`Unable to find ${server.path}`);
+        // Show an error message and prompt the user for an action
+        const selectedAction = await vscode.window.showWarningMessage(`Are your sure you want to disconnect from ${server.id}?`, 'Disconnect');
+        // If the (1) action is selected, execute the associated command
+        if (selectedAction) {
+            // Find the specified server in the list
+            const index = this._serverList.indexOf(server);
+            // If the element was found in the list
+            if (index > -1) {
+                // Remove the element
+                this._serverList.splice(index, 1);
+                // TODO: Dispose of the server's session
+                // server.session.dispose();
+                // Trigger a refresh of the panel
+                this._onDidChangeTreeData.fire(undefined);
+                vscode.window.showWarningMessage(`Disconnected from ${server.id}?`);
+            }
         }
     }
 
