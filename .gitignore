@@ -1,6 +1,7 @@
 ###### VSCode Extensions
 
 *.vsix
+test-resources/
 
 ###### NPM
 
@@ -180,6 +181,13 @@ nbdist/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+*.code-workspace
+
+# Testing extensions for VSCode
+.vscode-test/*
+
+# Local History for Visual Studio Code
+.history/
 
 ##### Windows
 

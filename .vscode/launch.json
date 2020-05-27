@@ -27,6 +27,7 @@
             "request": "launch",
             "runtimeExecutable": "${execPath}",
             "args": [
+                "--disable-extensions",
                 "--extensionDevelopmentPath=${workspaceRoot}",
                 "--extensionTestsPath=${workspaceRoot}/out/test"
             ],
@@ -34,7 +35,10 @@
             "outFiles": [
                 "${workspaceRoot}/out/test/**/*.js"
             ],
-            "preLaunchTask": "npm: test-compile"
+            "preLaunchTask": "npm: compile",
+            "env": {
+                "VAULT_ADDR": "http://localhost:8200"
+            }
         }
     ]
 }
