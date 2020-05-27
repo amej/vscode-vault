@@ -62,6 +62,18 @@ export class VaultTreeDataProvider implements vscode.TreeDataProvider<VaultTreeI
         }
     }
 
+    async disconnect(server: VaultServerTreeItem): Promise<void> {
+        const index = this._serverList.indexOf(server);
+        if (index > -1) {
+            this._serverList.splice(index, 1);
+            // TODO: Dispose of the server's session
+            // server.session.dispose();
+        }
+        else {
+            vscode.window.showWarningMessage(`Unable to find ${server.path}`);
+        }
+    }
+
     async refresh(element: VaultTreeItem): Promise<VaultTreeItem[]> {
         // If refreshing the element changed the content
         if (await element.refresh() === true) {
